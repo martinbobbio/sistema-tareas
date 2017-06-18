@@ -9,11 +9,25 @@ class UserController extends Controller
 {
     public function indexAction()
     {
-        return new Response("Bienvenido al modulo de Usuarios!");
+        $con = $this->getDoctrine()->getManager();
+        $users = $con->getRepository('MBUserBundle:User')->findAll();
+        
+        /*
+        $res = 'Lista de usuarios: <br />';
+        foreach($users as $user){
+            $res .= 'Usuario: '.$user->getUsername().'<br />';
+        }
+        return new Response($res);
+        */
+        return $this->render('MBUserBundle:User:index.html.twig', array('users' => $users));
     }
     
-    public function articlesAction($page)
-    {
-        return new Response("Este es el articulo " .$page);
+    public function viewAction($id){
+        $repository = $this->getDoctrine()->getRepository('MBUserBundle:User');
+        //$user = $repository->find($id);
+        $user = $repository->findOneById($id);
+        return new Response ('Usuario: '.$user->getUsername().'<br>Email: '.$user->getEmail());
     }
+    
+    
 }
