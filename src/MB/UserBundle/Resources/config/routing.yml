@@ -6,6 +6,11 @@ mb_user_index:
     path: /user/index
     defaults: { _controller: MBUserBundle:User:index }
     
+mb_user_create:
+    path: /user/create
+    defaults: { _controller: MBUserBundle:User:create }
+    methods: POST
+    
 mb_user_add:
     path: /user/add
     defaults: { _controller: MBUserBundle:User:add }
@@ -21,4 +26,11 @@ mb_user_view:
 mb_user_delete:
     path: /user/delete/{id}
     defaults: { _controller: MBUserBundle:User:delete }
+    
+mb_user_redirect_add:
+    path: /user/create
+    defaults:
+        _controller: MBUserBundle:User:add
+        path: /user/add
+        permanent: true
 

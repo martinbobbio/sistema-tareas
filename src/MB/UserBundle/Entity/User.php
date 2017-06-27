@@ -3,14 +3,20 @@
 namespace MB\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="MB\UserBundle\Entity\UserRepository")
+ * @UniqueEntity("username")
+ * @UniqueEntity("email")
+ * @ORM\HasLifecycleCallbacks()
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -23,42 +29,45 @@ class User
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="username", type="string", length=50)
      */
     private $username;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * 
      * @ORM\Column(name="first_name", type="string", length=100)
      */
     private $firstName;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="last_name", type="string", length=100)
      */
     private $lastName;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Email()
      * @ORM\Column(name="email", type="string", length=100)
      */
     private $email;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Choice(choices = {"ROLE_ADMIN", "ROLE_USER"})
      * @ORM\Column(name="role", type="string", columnDefinition="ENUM('ROLE_ADMIN', 'ROLE_USER')", length=50)
      */
     private $role;
@@ -301,4 +310,32 @@ class User
     {
         return $this->updatedAt;
     }
+    
+    /**
+    * @ORM\PrePersist
+    */
+    public function setCreatedAtValue(){
+        $this->createdAt = new \DateTime();
+    }
+    
+    /**
+    * @ORM\PrePersist
+    * @ORM\PreUpdate
+    */
+    public function setUpdateAtValue(){
+        $this->updatedAt = new \DateTime();
+    }
+    
+    public function getRoles(){
+        
+    }
+    
+    public function getSalt(){
+        
+    }
+    
+    public function eraseCredentials(){
+        
+    }
+    
 }

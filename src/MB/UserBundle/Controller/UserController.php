@@ -3,31 +3,56 @@
 namespace MB\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use MB\UserBundle\Entity\User;
+use MB\UserBundle\Form\UserType;
 
 class UserController extends Controller
 {
-    public function indexAction()
-    {
+    public function indexAction(){
+        
         $con = $this->getDoctrine()->getManager();
         $users = $con->getRepository('MBUserBundle:User')->findAll();
         
-        /*
-        $res = 'Lista de usuarios: <br />';
-        foreach($users as $user){
-            $res .= 'Usuario: '.$user->getUsername().'<br />';
-        }
-        return new Response($res);
-        */
         return $this->render('MBUserBundle:User:index.html.twig', array('users' => $users));
     }
     
     public function viewAction($id){
-        $repository = $this->getDoctrine()->getRepository('MBUserBundle:User');
-        //$user = $repository->find($id);
-        $user = $repository->findOneById($id);
-        return new Response ('Usuario: '.$user->getUsername().'<br>Email: '.$user->getEmail());
+        
     }
     
+    public function addAction(){
+        
+        $user = new User();
+        $form = $this->createCreateForm($user);
+        
+        return $this->render('MBUserBundle:User:add.html.twig', array('form' => $form->createView()));
+    }
+    
+    public function createAction(Request $request){
+        $user = new User();
+        $form = $this->createCreateForm($user);
+        $form->handleRequest($request);
+        
+        if($form->isValid()){
+            $password = $form->get('password')->getData();
+            $encoder = $this->container->get('security.password_encoder');
+            $encoded = $encoder->encodePassword($user, $password);
+            $user->setPassword($encoded);
+            
+            $con = $this->getDoctrine()->getManager();
+            $con->persist($user);
+            $con->flush();
+            
+            return $this->redirectToRoute('mb_user_index');
+        }
+        return $this->render('MBUserBundle:User:add.html.twig', array('form' => $form->createView()));
+    }
+    
+    private function createCreateForm(User $entity){
+        $form = $this->createForm(new UserType(), $entity, array('action' => $this->generateUrl('mb_user_create'), 'method' => 'POST'));
+        return $form;
+    }
     
 }
