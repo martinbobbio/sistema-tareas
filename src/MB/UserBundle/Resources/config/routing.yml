@@ -15,9 +15,15 @@ mb_user_add:
     path: /user/add
     defaults: { _controller: MBUserBundle:User:add }
     
+mb_user_update:
+    path: /user/update/{id}
+    defaults: { _controller: MBUserBundle:User:update }
+    methods: [POST, PUT]
+    
 mb_user_edit:
     path: /user/edit/{id}
     defaults: { _controller: MBUserBundle:User:edit }
+    
     
 mb_user_view:
     path: /user/view/{id}
@@ -32,5 +38,12 @@ mb_user_redirect_add:
     defaults:
         _controller: MBUserBundle:User:add
         path: /user/add
+        permanent: true
+        
+mb_user_redirect_edit:
+    path: /user/update/{id}
+    defaults:
+        _controller: MBUserBundle:User:edit
+        path: /user/edit/{id}
         permanent: true
 

@@ -44,7 +44,7 @@
                         <td>{{ user.updatedAt|date('d-m-Y H:i')}}</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-info">{% trans %}View{% endtrans %}</a>
-                            <a href="#" class="btn btn-sm btn-primary">{% trans %}Edit{% endtrans %}</a>
+                            <a href="{{ path('mb_user_edit', {id: user.id }) }}" class="btn btn-sm btn-primary">{% trans %}Edit{% endtrans %}</a>
                             <a href="#" class="btn btn-sm btn-danger">{% trans %}Delete{% endtrans %}</a>
                         </td>
                     </tr>
