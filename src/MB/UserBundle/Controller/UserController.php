@@ -45,6 +45,9 @@ class UserController extends Controller
             $con->persist($user);
             $con->flush();
             
+            $successMessage = $this->get('translator')->trans('The user has been created');
+            $this->addFlash('mensaje', $successMessage);
+            
             return $this->redirectToRoute('mb_user_index');
         }
         return $this->render('MBUserBundle:User:add.html.twig', array('form' => $form->createView()));
