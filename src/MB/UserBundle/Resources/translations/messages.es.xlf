@@ -130,6 +130,78 @@
                 <source>The user has been modified</source>
                 <target>El usuario se ha modificado</target>
             </trans-unit>
+            <trans-unit id="33">
+                <source>Enabled</source>
+                <target>Habilitado</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>Disabled</source>
+                <target>Deshabilitado</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>Delete user</source>
+                <target>Borrar usuario</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>The user has been deleted</source>
+                <target>El usuario ha sido borrado</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>Are you sure?</source>
+                <target>Estas seguro?</target>
+            </trans-unit>
+            <trans-unit id="38">
+                <source>The user could not be deleted</source>
+                <target>El usuario no se puede borrar</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>The task has been created</source>
+                <target>La tarea ha sido creada</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>New task</source>
+                <target>Nueva tarea</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>Title</source>
+                <target>Título</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>Description</source>
+                <target>Descripción</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source>Create task</source>
+                <target>Agregar tarea</target>
+            </trans-unit>
+            <trans-unit id="44">
+                <source>Task title</source>
+                <target>Título de la tarea</target>
+            </trans-unit>
+            <trans-unit id="45">
+                <source>Task description</source>
+                <target>Descripción de la tarea</target>
+            </trans-unit>
+            <trans-unit id="46">
+                <source>Tasks</source>
+                <target>Tareas</target>
+            </trans-unit>
+            <trans-unit id="47">
+                <source>List tasks</source>
+                <target>Lista tareas</target>
+            </trans-unit>
+            <trans-unit id="48">
+                <source>Add task</source>
+                <target>Agregar tarea</target>
+            </trans-unit>
+            <trans-unit id="49">
+                <source>Date</source>
+                <target>Fecha</target>
+            </trans-unit>
+            <trans-unit id="50">
+                <source>Status</source>
+                <target>Estado</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

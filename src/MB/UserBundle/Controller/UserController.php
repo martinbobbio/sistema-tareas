@@ -12,17 +12,44 @@ use MB\UserBundle\Form\UserType;
 
 class UserController extends Controller
 {
+    
+    //Index ------------------------------------------------------------------------------------------------
+    
     public function indexAction(){
         
         $con = $this->getDoctrine()->getManager();
         $users = $con->getRepository('MBUserBundle:User')->findAll();
         
-        return $this->render('MBUserBundle:User:index.html.twig', array('users' => $users));
+        $deleteFormAjax = $this->createCustomForm(':USER_ID','DELETE','mb_user_delete');
+        
+        return $this->render('MBUserBundle:User:index.html.twig', array('users' => $users, 'delete_form_ajax' => $deleteFormAjax->createView()));
     }
+    
+    private function createCustomForm($id,$method,$route){
+        
+        return $this->createFormBuilder()->setAction($this->generateUrl($route, array ('id' => $id)))->setMethod($method)->getForm();
+    }
+    
+    
+    //View ------------------------------------------------------------------------------------------------
     
     public function viewAction($id){
         
+        $repository = $this->getDoctrine()->getRepository('MBUserBundle:User');
+        $user = $repository->find($id);
+        
+        if(!$user){
+            $messageException = $this->get('translator')->trans('User not found');
+            throw $this->createNotFoundException($messageException);
+        }
+        
+        $deleteForm = $this->createCustomForm($user->getId(),'DELETE','mb_user_delete');
+        
+        return $this->render('MBUserBundle:User:view.html.twig', array('user' => $user, 'delete_form' => $deleteForm->createView()));
+        
     }
+    
+    //Edit ------------------------------------------------------------------------------------------------
     
     public function editAction($id){
         
@@ -79,6 +106,23 @@ class UserController extends Controller
         
     }
     
+    
+    private function createEditForm(User $entity){
+        $form = $this->createForm(new UserType(), $entity, array('action' => $this->generateUrl('mb_user_update', array('id' => $entity->getId())), 'method' => 'PUT'));
+        return $form;
+    }
+    
+    
+    private function recoverPass($id){
+        $con = $this->getDoctrine()->getManager();
+        $query = $con->createQuery('SELECT u.password FROM MBUserBundle:User u WHERE u.id = :id')->setParameter('id', $id);
+        $currentPass = $query->getResult();
+        
+        return $currentPass;
+    }
+    
+    //Add ------------------------------------------------------------------------------------------------
+    
     public function addAction(){
         
         $user = new User();
@@ -121,23 +165,58 @@ class UserController extends Controller
     }
     
     
-    
     private function createCreateForm(User $entity){
         $form = $this->createForm(new UserType(), $entity, array('action' => $this->generateUrl('mb_user_create'), 'method' => 'POST'));
         return $form;
     }
     
-    private function createEditForm(User $entity){
-        $form = $this->createForm(new UserType(), $entity, array('action' => $this->generateUrl('mb_user_update', array('id' => $entity->getId())), 'method' => 'PUT'));
-        return $form;
+    
+    //Delete ------------------------------------------------------------------------------------------------
+    
+    public function deleteAction(Request $request, $id){
+        
+        $con = $this->getDoctrine()->getManager();
+        $user = $con->getRepository('MBUserBundle:User')->find($id);
+        
+        if(!$user){
+            $messageException = $this->get('translator')->trans('User not found');
+            throw $this->createNotFoundException($messageException);
+        }
+        
+        $form = $this->createCustomForm($user->getId(),'DELETE','mb_user_delete');
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            
+            if($request->isXMLHttpRequest()){
+                
+                $res = $this->deleteUser($user->getRole(), $con, $user);
+                return new Response(json_encode(array('removed' => $res['removed'],'message' => $res['message'])),200, array('Content-Type' => 'application/json'));
+            }
+            
+            $res = $this->deleteUser($user->getRole(),$con,$user);
+            
+            $this->addFlash($res['alert'], $res['message']);
+            return $this->redirectToRoute('mb_user_index');
+        }
     }
     
-    private function recoverPass($id){
-        $con = $this->getDoctrine()->getManager();
-        $query = $con->createQuery('SELECT u.password FROM MBUserBundle:User u WHERE u.id = :id')->setParameter('id', $id);
-        $currentPass = $query->getResult();
+    private function deleteUser($role, $con, $user){
+        if($role == 'ROLE_USER'){
+            $con->remove($user);
+            $con->flush();
+            
+            $message = $this->get('translator')->trans('The user has been deleted');
+            $removed = 1;
+            $alert = 'mensaje';
+        }elseif($role == 'ROLE_ADMIN'){
+            $message = $this->get('translator')->trans('The user could not be deleted');
+            $removed = 0;
+            $alert = 'error';
+        }
         
-        return $currentPass;
+        return array('removed' => $removed, 'message' => $message, 'alert' => $alert);
     }
+    
     
 }

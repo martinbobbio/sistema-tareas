@@ -1,0 +1,44 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="container well">
+        <div class="col-md-9">
+            <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+            <dl>
+                <dt>{% trans %}Username{% endtrans %}</dt>
+                <dd>{{ user.username }}</dd><br>
+                <dt>{% trans %}First name{% endtrans %}</dt>
+                <dd>{{ user.firstName }}</dd><br>
+                <dt>{% trans %}Last name{% endtrans %}</dt>
+                <dd>{{ user.lastName }}</dd><br>
+                <dt>{% trans %}Email{% endtrans %}</dt>
+                <dd>{{ user.email }}</dd><br>
+                <dt>{% trans %}Active{% endtrans %}</dt>
+                <dd>
+                    {% if user.isActive == 1 %}
+                        <span class="text-success">Enabled</span>
+                    {% elseif user.isActive == 0 %}
+                        <span class="text-danger">Disabled</span>
+                    {% endif %}
+                </dd><br>
+                <dt>{% trans %}Created{% endtrans %}</dt>
+                <dd>{{ user.createdAt|date('d-m-Y H:i') }}</dd><br>
+                <dt>{% trans %}Updated{% endtrans %}</dt>
+                <dd>{{ user.createdAt|date('d-m-Y H:i') }}</dd><br>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <h3>{% trans %}Actions{% endtrans %}</h3>
+            <p>
+                <a href="{{ path('mb_user_edit', { id: user.id}) }}" class="btn btn-primary btn-primary btn-lg btn-block   ">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    {% trans %}Edit user{% endtrans %}
+                </a>
+            </p>
+            <p>
+                {{ include('MBUserBundle:User:forms/form.html.twig', {form: delete_form, message: 'Are you sure?'|trans}) }}
+            </p>
+        </div>
+    </div>
+{% endblock %}

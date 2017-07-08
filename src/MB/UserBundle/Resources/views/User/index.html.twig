@@ -4,7 +4,14 @@
 {{ parent() }}
 {# parent() --> Hereda el bloque de padre y le suma lo nuevo que esta adentro #}
 
+<div class="progress no-border hidden" id="delete-progress">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemin="100" style="width: 100%">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
 {% include('MBUserBundle:User:messages/success.html.twig') %}
+{% include('MBUserBundle:User:messages/danger.html.twig') %}
 
 <div class="container">
     <div class="col-md-12">    
@@ -28,7 +35,7 @@
                     </tr>
                 </thead>
                 {% for user in users %}
-                    <tr>
+                    <tr data-id="{{ user.id }}">
                         <td>{{ user.username }}</td>
                         <td>{{ user.firstName}}</td>
                         <td>{{ user.lastName}}</td>
@@ -43,9 +50,9 @@
                         <td>{{ user.createdAt|date('d-m-Y H:i')}}</td>
                         <td>{{ user.updatedAt|date('d-m-Y H:i')}}</td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-info">{% trans %}View{% endtrans %}</a>
+                            <a href="{{ path('mb_user_view', {id: user.id }) }}" class="btn btn-sm btn-info">{% trans %}View{% endtrans %}</a>
                             <a href="{{ path('mb_user_edit', {id: user.id }) }}" class="btn btn-sm btn-primary">{% trans %}Edit{% endtrans %}</a>
-                            <a href="#" class="btn btn-sm btn-danger">{% trans %}Delete{% endtrans %}</a>
+                            <a href="#" class="btn btn-sm btn-danger btn-delete">{% trans %}Delete{% endtrans %}</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -54,4 +61,13 @@
     </div>
 </div>
 
+{{ include('MBUserBundle:User:forms/form.html.twig', {form: delete_form_ajax, message: 'Are you sure?'|trans, id: 'form-delete', with_submit: false}) }}
+
+{% endblock %}
+
+{% block javascripts %}
+    
+    {{ parent() }}
+    <script src="{{ asset('bundles/mbuser/js/delete-user.js') }}"></script>
+    
 {% endblock %}

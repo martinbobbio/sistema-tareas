@@ -1,49 +1,8 @@
-mb_user_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: MBUserBundle:Default:index }
+mb_user_user:
+    resource: "@MBUserBundle/Resources/config/routes/user.yml"
+    prefix: /user
     
-mb_user_index:
-    path: /user/index
-    defaults: { _controller: MBUserBundle:User:index }
-    
-mb_user_create:
-    path: /user/create
-    defaults: { _controller: MBUserBundle:User:create }
-    methods: POST
-    
-mb_user_add:
-    path: /user/add
-    defaults: { _controller: MBUserBundle:User:add }
-    
-mb_user_update:
-    path: /user/update/{id}
-    defaults: { _controller: MBUserBundle:User:update }
-    methods: [POST, PUT]
-    
-mb_user_edit:
-    path: /user/edit/{id}
-    defaults: { _controller: MBUserBundle:User:edit }
-    
-    
-mb_user_view:
-    path: /user/view/{id}
-    defaults: { _controller: MBUserBundle:User:view }
-    
-mb_user_delete:
-    path: /user/delete/{id}
-    defaults: { _controller: MBUserBundle:User:delete }
-    
-mb_user_redirect_add:
-    path: /user/create
-    defaults:
-        _controller: MBUserBundle:User:add
-        path: /user/add
-        permanent: true
-        
-mb_user_redirect_edit:
-    path: /user/update/{id}
-    defaults:
-        _controller: MBUserBundle:User:edit
-        path: /user/edit/{id}
-        permanent: true
+mb_task_user:
+    resource: "@MBUserBundle/Resources/config/routes/task.yml"
+    prefix: /task
 

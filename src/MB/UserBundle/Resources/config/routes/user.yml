@@ -1,0 +1,44 @@
+mb_user_index:
+    path: /index
+    defaults: { _controller: MBUserBundle:User:index }
+    
+mb_user_create:
+    path: /create
+    defaults: { _controller: MBUserBundle:User:create }
+    methods: POST
+    
+mb_user_add:
+    path: /add
+    defaults: { _controller: MBUserBundle:User:add }
+    
+mb_user_update:
+    path: /update/{id}
+    defaults: { _controller: MBUserBundle:User:update }
+    methods: [POST, PUT]
+    
+mb_user_edit:
+    path: /edit/{id}
+    defaults: { _controller: MBUserBundle:User:edit }
+    
+mb_user_view:
+    path: /view/{id}
+    defaults: { _controller: MBUserBundle:User:view }
+    
+mb_user_delete:
+    path: /delete/{id}
+    defaults: { _controller: MBUserBundle:User:delete }
+    methods: [POST, DELETE]
+    
+mb_user_redirect_add:
+    path: /create
+    defaults:
+        _controller: MBUserBundle:User:add
+        path: /add
+        permanent: true
+        
+mb_user_redirect_edit:
+    path: /update/{id}
+    defaults:
+        _controller: MBUserBundle:User:edit
+        path: /edit/{id}
+        permanent: true
