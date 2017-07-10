@@ -10,14 +10,14 @@ Cloud9 Symfony, Doctrine, Twig, Boostrap, Ajax
 
 Inicio:
 
-![Image of inicio](web/public/images/pagina/inicio.PNG)
+![Image of inicio](web/public/images/inicio.PNG)
 Panel:
 
-![Image of inicio](web/public/images/pagina/panel.PNG)
+![Image of inicio](web/public/images/panel.PNG)
 Perfil:
 
-![Image of inicio](web/public/images/pagina/panel2.PNG)
+![Image of inicio](web/public/images/panel2.PNG)
 Tareas:
 
-![Image of inicio](web/public/images/pagina/tareas.PNG)
+![Image of inicio](web/public/images/tareas.PNG)
 
