@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+	{{ parent() }}
+	<div class="container">
+        <h2 class="text-center">
+            {{ 'Welcome'|trans }}
+            {% if app.user.role == 'ROLE_ADMIN' %}
+                <span class="text-success">{{'administrator'|trans}}
+            {% elseif app.user.role == 'ROLE_USER' %}
+                <span class="text-primary">{{'user'|trans}}
+            {% endif %}
+            [{{app.user.username}}]</span>
+        </h2>
+	</div>
+{% endblock %}

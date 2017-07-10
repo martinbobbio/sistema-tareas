@@ -12,6 +12,11 @@ use MB\UserBundle\Form\UserType;
 
 class UserController extends Controller
 {
+    //Login ------------------------------------------------------------------------------------------------
+    
+    public function homeAction(){
+        return $this->render('MBUserBundle:User:home.html.twig');
+    }
     
     //Index ------------------------------------------------------------------------------------------------
     

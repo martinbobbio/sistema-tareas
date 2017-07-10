@@ -1,0 +1,60 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+	{{ parent() }}
+	<div class="container well">
+	    <div class="col-md-9">
+	    <h2>{{ task.title }}</h2>
+	        <br>
+	        <dl>
+	            <dt>{{ 'Description'|trans }}</dt>
+	            <dd>
+	                {{ task.description }}
+	            </dd>
+	            <br>
+
+	            <dt>{{ 'User'|trans }}</dt>
+	            <dd>
+	                {{ user.fullName }}
+	            </dd>
+	            <br>
+
+	            <dt>{{ 'Status'|trans }}</dt>
+	            <dd>
+                	{% if task.status == 0 %}
+                	    <span class="text-danger">{{ 'Waiting'|trans }}</span>
+                	{% elseif task.status == 1 %}
+                	    <span class="text-success">{{ 'Finish'|trans }}</span>
+                	{% endif %}
+	            </dd>
+	            <br>
+
+	            <dt>{{ 'Created'|trans }}</dt>
+	            <dd>
+	                {{ task.createdAt|date('d-m-Y H:i') }}
+	            </dd>
+	            <br>
+
+	            <dt>{{ 'Updated'|trans }}</dt>
+	            <dd>
+	                {{ task.updatedAt|date('d-m-Y H:i') }}
+	            </dd>
+	            <br>
+	        </dl>
+	    </div>
+	    {% if is_granted('ROLE_ADMIN') %} 
+	    <div class="col-md-3">
+	        <h3>{{ 'Actions'|trans }}:</h3>
+	        <p>
+	            <a href="{{ path('mb_task_edit', {id: task.id}) }}" class="btn btn-primary btn-lg btn-block">
+	                <span class="glyphicon glyphicon-edit"></span>
+	                {{ 'Edit task'|trans }}
+	            </a>
+	        </p>
+	        <p>
+	            {{ include('MBUserBundle:Task:forms/form.html.twig', { form: delete_form, message: 'Are you sure ?'|trans }) }}
+	        </p>
+	    </div>
+	    {% endif %}
+	</div>
+{% endblock %}

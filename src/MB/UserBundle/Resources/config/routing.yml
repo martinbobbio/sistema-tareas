@@ -5,4 +5,22 @@ mb_user_user:
 mb_task_user:
     resource: "@MBUserBundle/Resources/config/routes/task.yml"
     prefix: /task
+    
+    
+# Autentication
+
+mb_user_homepage:
+    path:     /
+    defaults: { _controller: MBUserBundle:User:home }
+
+mb_user_login:
+    path:     /login
+    defaults: { _controller: MBUserBundle:Security:login }
+
+mb_user_login_check:
+    path:     /login_check
+    defaults: { _controller: MBUserBundle:Security:loginCheck }
+
+mb_user_logout:
+    path:     /logout
 

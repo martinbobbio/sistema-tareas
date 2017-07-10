@@ -29,6 +29,15 @@ mb_task_delete:
     defaults: { _controller: MBUserBundle:Task:delete }
     methods: [POST, DELETE]
     
+mb_task_custom:
+    path: /custom
+    defaults: { _controller: MBUserBundle:Task:custom }
+    
+mb_task_process:
+    path: /process/{id}
+    defaults: { _controller: MBUserBundle:Task:process }
+    methods: [POST, PUT]
+    
 mb_task_redirect_add:
     path: /create
     defaults:

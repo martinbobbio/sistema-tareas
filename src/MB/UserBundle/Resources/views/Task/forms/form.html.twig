@@ -1,0 +1,20 @@
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    	<button type="button" class="btn btn-lg btn-block btn-danger" onClick="confirmDelete()">
+        <span class="glyphicon glyphicon-trash"></span> {% trans %}Delete task{% endtrans %}
+    </button>
+{{ form_end(form) }}
+
+<script>
+    var message = '{{ message }}';
+    function confirmDelete()
+    {
+        bootbox.confirm(message, function(result) {
+          if(result == true)
+          {
+              document.form.submit();
+          }
+        });         
+    }
+</script>
