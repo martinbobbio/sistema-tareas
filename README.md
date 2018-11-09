@@ -1,23 +1,38 @@
-## Sistema de tareas
+<h1 align="center">
+  <br>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Symfony2.svg" width="200">
+  <br>
+  Sistema de tareas
+  <br>
+</h1>
 
-**Descripcion:**
+# Descripción
 Sistema de tareas la cual cuenta con un backend en el cual el admin puede ver y controlar las tareas de sus usuarios ademas de poder asignar las mismas.
 El sitio fue desarrollado en cloud9 y con el framework *Symfony*, su ORM *doctrine* y sus plantillas *twig*.
 Los usuarios pueden ver las tareas que tienen pendientes.
 
-**Tecnologias usadas:**
-Cloud9 Symfony, Doctrine, Twig, Boostrap, Ajax
+Tecnologias:
+- Symfony
+- Doctrine
+- Twig
+- Bootstrap
+- Ajax
 
-Inicio:
+# Capturas
+
+### Inicio
 
 ![Image of inicio](web/public/images/inicio.PNG)
-Panel:
+
+### Panel
 
 ![Image of inicio](web/public/images/panel.PNG)
-Perfil:
+
+### Perfil
 
 ![Image of inicio](web/public/images/panel2.PNG)
-Tareas:
+
+### Tareas
 
 ![Image of inicio](web/public/images/tareas.PNG)
 
