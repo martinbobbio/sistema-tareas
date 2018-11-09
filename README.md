@@ -1,7 +1,7 @@
 <h1 align="center">
   <br>
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Symfony2.svg" width="200">
-  <br>
+  <br><br>
   Sistema de tareas
   <br>
 </h1>
